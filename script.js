@@ -1,6 +1,7 @@
 console.log("hello");
 
 const categoriesContainer = document.getElementById("categoriesContainer");
+const treesContainer = document.getElementById("treesContainer")
 
 
 async function loadCategories() {
@@ -16,8 +17,31 @@ async function loadCategories() {
         categoriesContainer.appendChild(btn);
 
     });
-    // categoriesContainer.innerHTML= "button gula asbe"
+
+
+}
+
+async function loadTrees() {
+    const res = await fetch("https://openapi.programming-hero.com/api/plants");
+
+    const data = await res.json();
+    console.log(data);
+    displayTrees(data.plants);
+    
+
+}
+
+
+function displayTrees( trees){
+    console.log(trees);
+    trees.forEach(tree) => {
+        console.log(tree);
+    });
 
 }
 
 loadCategories();
+loadTrees();
+
+
+

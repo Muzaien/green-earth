@@ -16,3 +16,10 @@
  ul {
      font-family: 'Poppins', sans-serif;
  }
+
+ .btn-primary{
+    background-color: #4ade80;
+    color: white;
+    border: none;
+
+ }
