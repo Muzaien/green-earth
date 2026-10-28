@@ -82,8 +82,8 @@
 
             <div class="bg-white card card-body shadow-2xl col-span-1">
                 <h2 class="font-bold text-2xl ">categories</h2>
-                <div>
-                    <button class="btn btn-success w-full my-4" id="allTreesbtn">All Trees</button>
+                <div class="space-y-3 sticky top-8">
+                    <button class="btn btn-primary w-full my-4" id="allTreesbtn">All Trees</button>
 
                     <!-- categories container -->
                     <div id="categoriesContainer" class="space-y-3">
@@ -101,6 +101,10 @@
                      
                         <!-- JavaScript will add tree cards here -->
                 </div>
+                <!-- loading spinner -->
+                 <div id="loadingSpinner" class="h-[60vh] hidden flex justify-center items-center">
+                    <span class="loading loading-spinner loading-xl"></span>
+                 </div>
 
 
             </div>
