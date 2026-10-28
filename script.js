@@ -27,15 +27,38 @@ async function loadTrees() {
     const data = await res.json();
     console.log(data);
     displayTrees(data.plants);
-    
+
 
 }
 
 
-function displayTrees( trees){
+function displayTrees(trees) {
     console.log(trees);
-    trees.forEach(tree) => {
+    trees.forEach(tree => {
         console.log(tree);
+        const card = document.createElement("div")
+        card.className = "card bg-white shadow-sm";
+        card.innerHTML = ` <figure>
+                <img src= "${tree.image}"
+                    alt="${tree.name}"
+                    title ="${tree.name}"
+                    class = "h-48 w-full object-cover"
+                    />}
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title">${tree.name}</h2>
+                <p class="line-clamp-2">A fast-growing tropical tree that produces delicious, juicy mangoes
+                    during summer. Its dense green</p>
+                <div class="flex justify-between">
+
+                    <div class="badge badge-success badge-outline ">${tree.category}</div>
+                    <h2 class="font-bold text-xl text-[#5fd38a]">${tree.price}</h2>
+
+                </div>
+                <button class="btn btn-primary bg-[#4ade80]">Cart</button>
+            </div>`
+            treesContainer.appendChild(card);
+        
     });
 
 }
