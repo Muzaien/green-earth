@@ -11,6 +11,11 @@ const modalDescription = document.getElementById("modalDescription");
 const modalPrice = document.getElementById("modalPrice");
 const modalTitle = document.getElementById("modalTitle");
 
+let cart = [];
+
+const cartContainer = document.getElementById("cartContainer");
+const totalPrice = document.getElementById("totalPrice");
+
 
 function showLoading() {
     loadingSpinner.classList.remove("hidden");
@@ -135,9 +140,11 @@ function displayTrees(trees) {
                     </h2>
                 </div>
 
-                <button class="btn btn-primary bg-[#4ade80]">
-                    Cart
-                </button>
+               <button
+                 class="btn btn-primary bg-[#4ade80]"
+                 onclick="addToCart(${tree.id}, '${tree.name}', ${tree.price})">
+                 Cart
+               </button>
             </div>
         `;
 
@@ -161,7 +168,7 @@ async function openTreeModal(treeId) {
 
     console.log(plantDetails, "plant details");
 
-    
+
 
     modalTitle.textContent = plantDetails.name;
     modalImage.src = plantDetails.image;
@@ -172,6 +179,68 @@ async function openTreeModal(treeId) {
     treeDetailsModal.showModal();
 }
 
+
+
+function addToCart(id, name, price) {
+    const existingItem = cart.find(item => item.id === id);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            id,
+            name,
+            price,
+            quantity: 1
+        });
+    }
+
+    updateCart();
+}
+
+function updateCart() {
+    cartContainer.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+
+        const cartItem = document.createElement("div");
+
+        cartItem.className = "card card-body bg-slate-100 font-semibold";
+
+        cartItem.innerHTML = `
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2>${item.name}</h2>
+                    <p>$${item.price} x ${item.quantity}</p>
+                </div>
+
+                <button
+                    class="btn btn-ghost"
+                    onclick="removeFromCart(${item.id})"
+                >
+                    X
+                </button>
+
+                <p class="text-right font-semibold text-xl">
+                    $${item.price * item.quantity}
+                </p>
+            </div>
+        `;
+
+        cartContainer.appendChild(cartItem);
+    });
+
+    totalPrice.innerText = `$${total}`;
+}
+
+function removeFromCart(treeId) {
+    cart = cart.filter(item => item.id !== treeId);
+
+    updateCart();
+}
 
 loadCategories();
 loadTrees();
